@@ -1,17 +1,31 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import styles from "./ContactList.module.css";
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, onDeleteContact }) => {
   console.log(contacts);
 
   const randomId = uuidv4();
 
   return (
-    <ul>
+    <ul className={styles.contactList}>
       {contacts.map(({ id = { randomId }, name, number }) => (
-        <li id={id} name={name} number={number}>
+        <li
+          className={styles.contactListItem}
+          key={id}
+          id={id}
+          name={name}
+          number={number}
+        >
           {name}
           {number}
+          <button
+            className={styles.contactListButton}
+            type="button"
+            onClick={() => onDeleteContact(id)}
+          >
+            Delete
+          </button>
         </li>
       ))}
     </ul>

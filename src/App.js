@@ -4,7 +4,7 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import Filter from "./components/Filter/Filter";
 import ContactList from "./components/ContactList/ContactList";
 import contacts from "./contacts.json";
-// console.log(uuidv4());
+import styles from "./App.module.css";
 
 class Phonebook extends Component {
   state = {
@@ -36,6 +36,14 @@ class Phonebook extends Component {
     }
   };
 
+  deleteContact = (contactId) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter(
+        (contact) => contact.id !== contactId
+      ),
+    }));
+  };
+
   changeFilter = (e) => {
     this.setState({ filter: e.currentTarget.value });
     console.log(e);
@@ -51,10 +59,11 @@ class Phonebook extends Component {
   };
 
   render() {
-    const { contacts, filter } = this.state;
+    const { filter } = this.state;
     const filtrd = this.getFilteredItems();
+
     return (
-      <div>
+      <div className={styles.container}>
         <h1>Phonebook</h1>
         <ContactForm
           onClick={this.handleBtnClick}
@@ -64,7 +73,11 @@ class Phonebook extends Component {
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
 
-        <ContactList id={this.randomId} contacts={filtrd} />
+        <ContactList
+          id={this.randomId}
+          contacts={filtrd}
+          onDeleteContact={this.deleteContact}
+        />
       </div>
     );
   }
