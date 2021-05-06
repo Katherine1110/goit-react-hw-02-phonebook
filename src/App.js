@@ -11,7 +11,6 @@ class Phonebook extends Component {
     contacts: contacts,
     filter: "",
   };
-  randomId = uuidv4();
 
   formSubmitHandler = (data) => {
     console.log(data);
@@ -26,7 +25,7 @@ class Phonebook extends Component {
       alert(`${name} is already in contacts!`);
     } else {
       const contact = {
-        id: this.randomId,
+        id: uuidv4(),
         name: name,
         number: number,
       };
@@ -60,7 +59,7 @@ class Phonebook extends Component {
 
   render() {
     const { filter } = this.state;
-    const filtrd = this.getFilteredItems();
+    const filteredContacts = this.getFilteredItems();
 
     return (
       <div className={styles.container}>
@@ -74,8 +73,7 @@ class Phonebook extends Component {
         <Filter value={filter} onChange={this.changeFilter} />
 
         <ContactList
-          id={this.randomId}
-          contacts={filtrd}
+          contacts={filteredContacts}
           onDeleteContact={this.deleteContact}
         />
       </div>

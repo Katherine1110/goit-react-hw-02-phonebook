@@ -5,11 +5,9 @@ import styles from "./ContactList.module.css";
 const ContactList = ({ contacts, onDeleteContact }) => {
   console.log(contacts);
 
-  const randomId = uuidv4();
-
   return (
     <ul className={styles.contactList}>
-      {contacts.map(({ id = { randomId }, name, number }) => (
+      {contacts.map(({ id, name, number }) => (
         <li
           className={styles.contactListItem}
           key={id}
